@@ -15,6 +15,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -88,4 +93,23 @@ public class TeacherService {
         }
         return filename.substring(filename.lastIndexOf('.'));
     }
+
+    @Transactional
+    public Page<TeacherReadOnlyDTO> getPaginatedTeachers(int page, int size) {
+
+        String defaultSort = "id";
+        Pageable pageable = PageRequest.of(page, size, Sort.by(defaultSort).ascending());
+        return teacherRepository.findAll(pageable).map(mapper::mapToTeacherReadOnlyDTO);
+    }
+
+    @Transactional
+    public Page<TeacherReadOnlyDTO> getPaginatedSorted(int page, int size, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return teacherRepository.findAll(pageable).map(mapper::mapToTeacherReadOnlyDTO);
+    }
+
+
+
+
 }
