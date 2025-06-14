@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class TeacherRestController {
 
     private final TeacherService teacherService;
 
-    @PostMapping("/save")
+    @PostMapping("/teachers/save")
     public ResponseEntity<TeacherReadOnlyDTO> saveTeacher(
             @Valid @RequestPart(name = "teacher") TeacherInsertDTO teacherInsertDTO,
             @Nullable @RequestPart("amkaFile") MultipartFile amkaFile,
@@ -47,7 +47,7 @@ public class TeacherRestController {
 
     }
 
-    @GetMapping("/paginated")
+    @GetMapping("/teachers/paginated")
     public ResponseEntity<Page<TeacherReadOnlyDTO>> getPaginatedTeachers(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5")  int size) {
 
@@ -56,7 +56,7 @@ public class TeacherRestController {
         return new ResponseEntity<>(teachersPage, HttpStatus.OK);
     }
 
-    @PostMapping("/filtered")
+    @PostMapping("/teachers/filtered")
     public ResponseEntity<List<TeacherReadOnlyDTO>> getFilteredTeachers(
             @Nullable @RequestBody TeacherFilters filters) throws AppObjectNotAuthorizedException {
 
@@ -64,7 +64,7 @@ public class TeacherRestController {
         return ResponseEntity.ok(teacherService.getTeachersFiltered(filters));
     }
 
-    @PostMapping("/filtered/paginated")
+    @PostMapping("/teachers/filtered/paginated")
     public ResponseEntity<Paginated<TeacherReadOnlyDTO>> getTeachersFilteredPaginated(@Nullable @RequestBody TeacherFilters filters)
         throws AppObjectNotAuthorizedException {
 
