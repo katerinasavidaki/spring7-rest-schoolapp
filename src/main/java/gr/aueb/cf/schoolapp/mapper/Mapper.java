@@ -49,7 +49,7 @@ public class Mapper {
         user.setLastname(userDTO.getLastname());
         user.setUsername(userDTO.getUsername());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setAfm(userDTO.getVat());
+        user.setAfm(userDTO.getAfm());
         user.setFatherName(userDTO.getFatherName());
         user.setFatherLastname(userDTO.getFatherLastname());
         user.setMotherName(userDTO.getMotherName());

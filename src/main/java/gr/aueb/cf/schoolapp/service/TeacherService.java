@@ -48,8 +48,8 @@ public class TeacherService {
     public TeacherReadOnlyDTO saveTeacher(TeacherInsertDTO teacherInsertDTO, MultipartFile amkaFile)
     throws AppObjectAlreadyExistsException, AppObjectInvalidArgumentException, IOException {
 
-        if (userRepository.findByVat(teacherInsertDTO.getUser().getVat()).isPresent()) {
-            throw new AppObjectAlreadyExistsException("User", "User with VAT " + teacherInsertDTO.getUser().getVat() + " already exists");
+        if (userRepository.findByVat(teacherInsertDTO.getUser().getAfm()).isPresent()) {
+            throw new AppObjectAlreadyExistsException("User", "User with VAT " + teacherInsertDTO.getUser().getAfm() + " already exists");
         }
 
         if (userRepository.findByUsername(teacherInsertDTO.getUser().getUsername()).isPresent()) {

@@ -31,7 +31,7 @@ public class UserInsertDTO {
 
     @NotEmpty(message = "VAT number is required")
     @Pattern(regexp = "\\d{9}", message = "VAT must be a 9-digit number")
-    private String vat;
+    private String afm;
 
     @NotEmpty(message = "Father's name is required")
     private String fatherName;
